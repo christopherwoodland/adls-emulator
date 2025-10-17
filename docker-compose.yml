@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  adls-emulator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "10000:10000"
+    environment:
+      - PORT=10000
+      - NODE_ENV=development
+    volumes:
+      - adls-data:/app/data
+    command: npm start
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:10000/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  adls-data:
+    driver: local
