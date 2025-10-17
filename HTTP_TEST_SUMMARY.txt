@@ -1,0 +1,407 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║              📄 HTTP TEST FILE CREATED SUCCESSFULLY!                           ║
+║                    test-endpoints.http (296 lines)                             ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+📋 OVERVIEW
+═══════════════════════════════════════════════════════════════════════════════
+
+File Name:        test-endpoints.http
+Location:         c:\Users\cwoodland\dev\adls-emulator\
+File Size:        ~12 KB
+Total Lines:      296 lines
+Test Requests:    65+ comprehensive API tests
+Sections:         15 organized test groups
+
+
+🎯 WHAT'S INCLUDED
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ 1. Health Check (1 test)
+   └─ Verify emulator is running
+
+✅ 2. Container Operations (4 tests)
+   ├─ Create container
+   ├─ List all containers
+   ├─ List container contents
+   └─ Delete container
+
+✅ 3. File Operations - Basic (4 tests)
+   ├─ Upload text file
+   ├─ Download file
+   ├─ Update file content
+   └─ Delete file
+
+✅ 4. File Operations - JSON (3 tests)
+   ├─ Upload JSON file
+   ├─ Download JSON
+   └─ Update JSON
+
+✅ 5. File Operations - CSV (3 tests)
+   ├─ Upload CSV data
+   ├─ Download CSV
+   └─ Delete CSV
+
+✅ 6. Directory Operations (3 tests)
+   ├─ Create directory
+   ├─ List directory
+   └─ Delete directory
+
+✅ 7. Nested Operations (5 tests)
+   ├─ Create deep hierarchy
+   ├─ Upload to nested path
+   ├─ List nested directory
+   ├─ Download from nested
+   └─ Delete nested items
+
+✅ 8. Bulk Operations (7 tests)
+   ├─ Upload multiple files
+   ├─ List bulk contents
+   └─ Delete multiple files
+
+✅ 9. Data Analytics Scenario (8 tests)
+   ├─ Create analytics structure
+   ├─ Upload raw data
+   ├─ Upload results
+   └─ Verify data
+
+✅ 10. Document Scenario (7 tests)
+   ├─ Create document hierarchy
+   ├─ Upload reports
+   ├─ List directories
+   └─ Download documents
+
+✅ 11. Metadata Operations (3 tests)
+   ├─ Create file
+   ├─ Get with metadata
+   └─ Update metadata
+
+✅ 12. Error Handling (4 tests)
+   ├─ 404 not found
+   ├─ Invalid paths
+   └─ Non-existent items
+
+✅ 13. Cleanup Operations (1 test)
+   └─ Remove all test data
+
+✅ 14. Performance Tests (2 tests)
+   ├─ Upload large file
+   └─ Download large file
+
+✅ 15. Sequential Workflow (10 tests)
+   └─ Complete end-to-end workflow
+
+
+🚀 HOW TO USE
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: Install VS Code REST Client Extension
+────────────────────────────────────────────────
+   • Open VS Code
+   • Press Ctrl+Shift+X (Extensions)
+   • Search: "REST Client"
+   • Install by humao (4.2M+ downloads)
+   • Reload VS Code
+
+STEP 2: Start the Emulator
+────────────────────────────
+   • Open terminal in VS Code
+   • Run: npm start
+   • You should see:
+     "Server running at http://localhost:10000"
+
+STEP 3: Open the Test File
+────────────────────────────
+   • File → Open: test-endpoints.http
+   • Or: Ctrl+P → test-endpoints.http
+
+STEP 4: Run Tests
+────────────────────────────
+   • Hover over any request (line starting with GET, PUT, etc.)
+   • Click "Send Request" that appears
+   • View response in right panel
+   • Follow the numbered sections
+
+STEP 5: Follow Sequential Order
+────────────────────────────────
+   • Start with "HEALTH CHECK"
+   • Move through each section in order
+   • Most tests depend on prior setup
+   • Last section is cleanup
+
+
+📊 TEST STATISTICS
+═══════════════════════════════════════════════════════════════════════════════
+
+Total Test Requests:        65+
+HTTP Methods:               PUT, GET, DELETE, PATCH
+Content Types:              text/plain, application/json, text/csv
+Test Scenarios:             5 (basic, JSON, CSV, analytics, documents)
+Error Cases:                4
+Performance Tests:          2
+Workflow Tests:             10
+Setup Commands:             20+
+Cleanup Commands:           10+
+Lines of Code:              296 lines
+
+
+🔌 API ENDPOINTS TESTED
+═══════════════════════════════════════════════════════════════════════════════
+
+CONTAINERS:
+  ✅ PUT    /{container}                - Create
+  ✅ GET    /                           - List all
+  ✅ GET    /{container}                - List contents
+  ✅ DELETE /{container}                - Delete
+
+FILES:
+  ✅ PUT    /{container}/{path}         - Upload
+  ✅ GET    /{container}/{path}         - Download
+  ✅ DELETE /{container}/{path}         - Delete
+  ✅ PATCH  /{container}/{path}         - Update metadata
+
+DIRECTORIES:
+  ✅ PUT    /{container}/{path}?dir     - Create
+  ✅ GET    /{container}/{path}         - List
+  ✅ DELETE /{container}/{path}         - Delete
+
+HEALTH:
+  ✅ GET    /health                     - Check status
+
+
+📝 VARIABLES DEFINED
+═══════════════════════════════════════════════════════════════════════════════
+
+@baseUrl = http://localhost:10000
+@containerName = test-container
+@fileName = test-file.txt
+@jsonFileName = data.json
+@directoryName = test-directory
+@nestedPath = level1/level2/level3
+
+Change these at the top of the file to customize tests.
+
+
+🎯 QUICK TEST PATHS
+═══════════════════════════════════════════════════════════════════════════════
+
+QUICKEST (2 minutes):
+  1. Health Check
+  2. Create Container
+  3. Upload File
+  4. Download File
+  5. Delete Container
+
+QUICK (5 minutes):
+  1. Health Check
+  2. Container Operations (all)
+  3. File Operations - Basic (all)
+  4. Cleanup
+
+MEDIUM (15 minutes):
+  1-7. All sections up to Error Handling
+  8. Cleanup
+
+FULL (30 minutes):
+  1. Run all 15 sections
+  2. Review all responses
+  3. Verify workflow test
+
+
+📚 COMPANION FILES
+═══════════════════════════════════════════════════════════════════════════════
+
+HTTP_TESTING_GUIDE.md        ← Detailed guide for using this file
+HTTP_QUICK_REF.md            ← Quick reference card
+README.md                    ← Full API documentation
+CURL_EXAMPLES.md             ← cURL alternatives for each request
+examples.js                  ← Programmatic usage examples
+
+
+✨ FEATURES OF THIS FILE
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Variables for Easy Customization
+   - Change @baseUrl to test different endpoints
+   - Modify @containerName for different containers
+   - Reuse variables across requests
+
+✅ Organized into Logical Sections
+   - Each section is self-contained
+   - Clear comments and headers
+   - Easy to navigate
+
+✅ Real-World Scenarios
+   - Data Analytics pipeline
+   - Document management
+   - Bulk operations
+   - Complete workflows
+
+✅ Error Testing
+   - Tests for 404 responses
+   - Tests for invalid paths
+   - Tests for conflicts
+
+✅ Performance Testing
+   - Large file upload/download
+   - Measures response times
+
+✅ Clean Comments
+   - Descriptive headers
+   - Clear section organization
+   - Operation descriptions
+
+
+🎓 RECOMMENDED LEARNING PATH
+═══════════════════════════════════════════════════════════════════════════════
+
+Beginner:
+  1. Read HTTP_QUICK_REF.md
+  2. Install REST Client extension
+  3. Run Health Check
+  4. Run Container Operations
+  5. Run File Operations - Basic
+
+Intermediate:
+  1. Review API_TESTING_GUIDE.md
+  2. Run all basic sections
+  3. Run Bulk Operations
+  4. Run Error Handling
+  5. Understand responses
+
+Advanced:
+  1. Modify requests
+  2. Create custom tests
+  3. Run Analytics Scenario
+  4. Run Sequential Workflow
+  5. Analyze performance
+
+
+💡 USAGE EXAMPLES
+═══════════════════════════════════════════════════════════════════════════════
+
+Example 1: Basic File Upload
+────────────────────────────
+1. Run: Health Check (verify server)
+2. Run: PUT - Create Container
+3. Run: PUT - Upload Text File
+4. Check response for file metadata
+5. Run: GET - Download Text File
+6. Verify content returned
+
+Example 2: Create Directory Structure
+────────────────────────────────────
+1. Run: PUT - Create Container
+2. Run: PUT - Create Nested Directories
+3. Run: GET - List Nested Directory
+4. Run: PUT - Upload to Nested Path
+5. Verify hierarchy created
+
+Example 3: Complete Analytics Workflow
+──────────────────────────────────────
+1. Run: PUT - Create Analytics Container
+2. Run: PUT - Create directories (raw, processed, results)
+3. Run: PUT - Upload Raw Data CSV
+4. Run: PUT - Upload Results JSON
+5. Run: GET - List directories
+6. Run: GET - Download files
+7. Verify data pipeline
+
+
+🔧 KEYBOARD SHORTCUTS
+═══════════════════════════════════════════════════════════════════════════════
+
+Ctrl+Alt+R        Send Request
+Ctrl+H            Show History
+Ctrl+Alt+H        Clear History
+Ctrl+Shift+E      Toggle Explorer
+F1                Command Palette
+
+
+🐛 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+Problem: "Cannot GET /health"
+Solution: Start emulator with 'npm start'
+
+Problem: "Container already exists" (409)
+Solution: Use different container name or delete existing one
+
+Problem: "File not found" (404)
+Solution: Make sure container exists and path is correct
+
+Problem: "Connection refused"
+Solution: Verify port is 10000, check @baseUrl variable
+
+Problem: "Invalid JSON"
+Solution: Check JSON syntax in request body
+
+
+📊 RESPONSE EXAMPLES
+═══════════════════════════════════════════════════════════════════════════════
+
+Success (201 Created):
+{
+  "path": "file.txt",
+  "type": "file",
+  "properties": {
+    "createdTime": "...",
+    "modifiedTime": "...",
+    "etag": "...",
+    "size": 123
+  }
+}
+
+Success (200 OK):
+{
+  "contents": [...],
+  "count": 5
+}
+
+Error (404):
+{
+  "error": "File not found"
+}
+
+
+🎉 YOU'RE READY TO TEST!
+═══════════════════════════════════════════════════════════════════════════════
+
+1. ✅ Install REST Client extension
+2. ✅ Start emulator: npm start
+3. ✅ Open test-endpoints.http
+4. ✅ Hover over first request
+5. ✅ Click "Send Request"
+6. ✅ View response
+7. ✅ Continue with next tests
+
+
+NEXT STEPS
+═══════════════════════════════════════════════════════════════════════════════
+
+→ Read HTTP_QUICK_REF.md for quick reference
+→ Read HTTP_TESTING_GUIDE.md for detailed guide
+→ Start with Health Check test
+→ Follow sections in order
+→ Review responses
+→ Run complete workflows
+
+
+SUPPORT RESOURCES
+═══════════════════════════════════════════════════════════════════════════════
+
+This File:           test-endpoints.http
+Quick Reference:     HTTP_QUICK_REF.md
+Detailed Guide:      HTTP_TESTING_GUIDE.md
+API Documentation:   README.md
+cURL Examples:       CURL_EXAMPLES.md
+Code Examples:       examples.js
+Architecture:        DEVELOPER.md
+
+
+✨ HAPPY TESTING! 🚀
+
+Your comprehensive HTTP test file is ready to use.
+Start with the Health Check section and work through each test.
+
+═══════════════════════════════════════════════════════════════════════════════

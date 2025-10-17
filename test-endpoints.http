@@ -1,0 +1,421 @@
+### ADLS Gen2 Emulator - HTTP Client Test File
+### Use with VS Code REST Client extension
+### Install: ext install humao.rest-client
+
+@baseUrl = http://localhost:10000
+@containerName = test-container
+@fileName = test-file.txt
+@jsonFileName = data.json
+@directoryName = test-directory
+@nestedPath = level1/level2/level3
+
+
+### ============================================================================
+### HEALTH CHECK ENDPOINTS
+### ============================================================================
+
+### GET - Health Check
+GET {{baseUrl}}/health
+
+
+### ============================================================================
+### CONTAINER OPERATIONS
+### ============================================================================
+
+### PUT - Create Container
+PUT {{baseUrl}}/{{containerName}}
+
+### GET - List All Containers
+GET {{baseUrl}}/
+
+### GET - List Container Contents (Root)
+GET {{baseUrl}}/{{containerName}}
+
+### DELETE - Delete Container
+DELETE {{baseUrl}}/{{containerName}}
+
+
+### ============================================================================
+### FILE OPERATIONS - BASIC
+### ============================================================================
+
+### PUT - Upload Text File
+PUT {{baseUrl}}/{{containerName}}/{{fileName}}
+Content-Type: text/plain
+
+Hello, Azure Data Lake Storage Gen2!
+
+### GET - Download Text File
+GET {{baseUrl}}/{{containerName}}/{{fileName}}
+
+### PUT - Update File Content
+PUT {{baseUrl}}/{{containerName}}/{{fileName}}
+Content-Type: text/plain
+
+Updated content for the file.
+
+### DELETE - Delete File
+DELETE {{baseUrl}}/{{containerName}}/{{fileName}}
+
+
+### ============================================================================
+### FILE OPERATIONS - JSON
+### ============================================================================
+
+### PUT - Upload JSON File
+PUT {{baseUrl}}/{{containerName}}/{{jsonFileName}}
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "department": "Engineering",
+  "years": 5
+}
+
+### GET - Download JSON File
+GET {{baseUrl}}/{{containerName}}/{{jsonFileName}}
+
+### PUT - Update JSON File
+PUT {{baseUrl}}/{{containerName}}/{{jsonFileName}}
+Content-Type: application/json
+
+{
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "department": "Data Science",
+  "years": 3
+}
+
+### DELETE - Delete JSON File
+DELETE {{baseUrl}}/{{containerName}}/{{jsonFileName}}
+
+
+### ============================================================================
+### FILE OPERATIONS - CSV
+### ============================================================================
+
+### PUT - Upload CSV File
+PUT {{baseUrl}}/{{containerName}}/data.csv
+Content-Type: text/csv
+
+id,name,value,date
+1,metric-a,100,2024-01-01
+2,metric-b,200,2024-01-02
+3,metric-c,150,2024-01-03
+
+### GET - Download CSV File
+GET {{baseUrl}}/{{containerName}}/data.csv
+
+### DELETE - Delete CSV File
+DELETE {{baseUrl}}/{{containerName}}/data.csv
+
+
+### ============================================================================
+### DIRECTORY OPERATIONS
+### ============================================================================
+
+### PUT - Create Simple Directory
+PUT {{baseUrl}}/{{containerName}}/{{directoryName}}?directory
+
+### GET - List Directory Contents (Empty)
+GET {{baseUrl}}/{{containerName}}/{{directoryName}}
+
+### DELETE - Delete Empty Directory
+DELETE {{baseUrl}}/{{containerName}}/{{directoryName}}
+
+
+### ============================================================================
+### NESTED OPERATIONS - DEEP HIERARCHY
+### ============================================================================
+
+### PUT - Create Nested Directories
+PUT {{baseUrl}}/{{containerName}}/{{nestedPath}}?directory
+
+### PUT - Upload File to Nested Path
+PUT {{baseUrl}}/{{containerName}}/{{nestedPath}}/nested-file.txt
+Content-Type: text/plain
+
+This file is in a deeply nested directory structure.
+
+### GET - List Nested Directory
+GET {{baseUrl}}/{{containerName}}/{{nestedPath}}
+
+### GET - Download Nested File
+GET {{baseUrl}}/{{containerName}}/{{nestedPath}}/nested-file.txt
+
+### DELETE - Delete Nested File
+DELETE {{baseUrl}}/{{containerName}}/{{nestedPath}}/nested-file.txt
+
+### DELETE - Delete Nested Directory (must be empty)
+DELETE {{baseUrl}}/{{containerName}}/{{nestedPath}}
+
+
+### ============================================================================
+### BULK FILE OPERATIONS
+### ============================================================================
+
+### PUT - Upload Multiple Files (File 1)
+PUT {{baseUrl}}/{{containerName}}/bulk/file-1.txt
+Content-Type: text/plain
+
+Content for file 1
+
+### PUT - Upload Multiple Files (File 2)
+PUT {{baseUrl}}/{{containerName}}/bulk/file-2.txt
+Content-Type: text/plain
+
+Content for file 2
+
+### PUT - Upload Multiple Files (File 3)
+PUT {{baseUrl}}/{{containerName}}/bulk/file-3.txt
+Content-Type: text/plain
+
+Content for file 3
+
+### GET - List Bulk Directory
+GET {{baseUrl}}/{{containerName}}/bulk
+
+### DELETE - Delete File 1
+DELETE {{baseUrl}}/{{containerName}}/bulk/file-1.txt
+
+### DELETE - Delete File 2
+DELETE {{baseUrl}}/{{containerName}}/bulk/file-2.txt
+
+### DELETE - Delete File 3
+DELETE {{baseUrl}}/{{containerName}}/bulk/file-3.txt
+
+
+### ============================================================================
+### DATA ANALYTICS SCENARIO
+### ============================================================================
+
+### PUT - Create Analytics Container
+PUT {{baseUrl}}/analytics
+
+### PUT - Create Raw Data Directory
+PUT {{baseUrl}}/analytics/raw?directory
+
+### PUT - Create Processed Directory
+PUT {{baseUrl}}/analytics/processed?directory
+
+### PUT - Create Results Directory
+PUT {{baseUrl}}/analytics/results?directory
+
+### PUT - Upload Raw Data CSV
+PUT {{baseUrl}}/analytics/raw/metrics.csv
+Content-Type: text/csv
+
+id,value,timestamp,category
+1,100,2024-01-01T00:00:00Z,A
+2,200,2024-01-02T00:00:00Z,B
+3,150,2024-01-03T00:00:00Z,A
+4,300,2024-01-04T00:00:00Z,C
+
+### PUT - Upload Processing Results JSON
+PUT {{baseUrl}}/analytics/results/summary.json
+Content-Type: application/json
+
+{
+  "processed_at": "2024-01-05T10:30:00Z",
+  "records_processed": 4,
+  "success": true,
+  "errors": 0,
+  "processing_time_ms": 125
+}
+
+### GET - List Raw Directory
+GET {{baseUrl}}/analytics/raw
+
+### GET - List Results Directory
+GET {{baseUrl}}/analytics/results
+
+### GET - Download Metrics CSV
+GET {{baseUrl}}/analytics/raw/metrics.csv
+
+### GET - Download Summary JSON
+GET {{baseUrl}}/analytics/results/summary.json
+
+
+### ============================================================================
+### DOCUMENT SCENARIO
+### ============================================================================
+
+### PUT - Create Documents Container
+PUT {{baseUrl}}/documents
+
+### PUT - Create Documents/Reports Directory
+PUT {{baseUrl}}/documents/reports?directory
+
+### PUT - Create Documents/Reports/2024 Directory
+PUT {{baseUrl}}/documents/reports/2024?directory
+
+### PUT - Create Documents/Reports/2024/Q1 Directory
+PUT {{baseUrl}}/documents/reports/2024/Q1?directory
+
+### PUT - Upload Report File
+PUT {{baseUrl}}/documents/reports/2024/Q1/quarterly-report.txt
+Content-Type: text/plain
+
+QUARTERLY REPORT - Q1 2024
+
+Executive Summary:
+- Revenue: $1,250,000
+- Growth: 15% YoY
+- Market Share: 22%
+
+Key Metrics:
+- Customer Acquisition: 500
+- Customer Retention: 95%
+- NPS Score: 72
+
+### GET - List Q1 Reports
+GET {{baseUrl}}/documents/reports/2024/Q1
+
+### GET - List 2024 Directory
+GET {{baseUrl}}/documents/reports/2024
+
+### GET - Download Report
+GET {{baseUrl}}/documents/reports/2024/Q1/quarterly-report.txt
+
+
+### ============================================================================
+### METADATA OPERATIONS
+### ============================================================================
+
+### PUT - Create File for Metadata Test
+PUT {{baseUrl}}/{{containerName}}/metadata-test.txt
+Content-Type: text/plain
+
+File for testing metadata operations
+
+### GET - Get File with Metadata Headers
+GET {{baseUrl}}/{{containerName}}/metadata-test.txt
+
+### PATCH - Update File Metadata
+PATCH {{baseUrl}}/{{containerName}}/metadata-test.txt
+Content-Type: application/json
+
+{
+  "properties": {
+    "description": "Updated file description",
+    "tags": ["important", "test", "metadata"]
+  }
+}
+
+
+### ============================================================================
+### ERROR HANDLING & EDGE CASES
+### ============================================================================
+
+### GET - Access Non-existent Container (404)
+GET {{baseUrl}}/non-existent-container
+
+### GET - Access Non-existent File (404)
+GET {{baseUrl}}/{{containerName}}/non-existent-file.txt
+
+### GET - Access Non-existent Nested Path (404)
+GET {{baseUrl}}/{{containerName}}/non/existent/path.txt
+
+### DELETE - Delete Non-existent File (Error)
+DELETE {{baseUrl}}/{{containerName}}/non-existent.txt
+
+
+### ============================================================================
+### CLEANUP OPERATIONS
+### ============================================================================
+
+### DELETE - Delete All Test Files and Directories
+### Run these in sequence to clean up
+
+### DELETE - Analytics Container Contents
+DELETE {{baseUrl}}/analytics/results/summary.json
+DELETE {{baseUrl}}/analytics/raw/metrics.csv
+DELETE {{baseUrl}}/analytics/processed
+DELETE {{baseUrl}}/analytics/raw
+DELETE {{baseUrl}}/analytics
+
+### DELETE - Documents Container Contents  
+DELETE {{baseUrl}}/documents/reports/2024/Q1/quarterly-report.txt
+DELETE {{baseUrl}}/documents/reports/2024/Q1
+DELETE {{baseUrl}}/documents/reports/2024
+DELETE {{baseUrl}}/documents/reports
+DELETE {{baseUrl}}/documents
+
+### DELETE - Test Container
+DELETE {{baseUrl}}/{{containerName}}
+
+
+### ============================================================================
+### PERFORMANCE TEST
+### ============================================================================
+
+### PUT - Create Large Text Content
+PUT {{baseUrl}}/{{containerName}}/large-file.txt
+Content-Type: text/plain
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+This is a test file for performance measurements.
+Lines 2, 3, 4, 5, 6, 7, 8, 9, 10 - repeated content for size testing.
+Lines 2, 3, 4, 5, 6, 7, 8, 9, 10 - repeated content for size testing.
+Lines 2, 3, 4, 5, 6, 7, 8, 9, 10 - repeated content for size testing.
+
+### GET - Download Large File
+GET {{baseUrl}}/{{containerName}}/large-file.txt
+
+
+### ============================================================================
+### SEQUENTIAL WORKFLOW TEST
+### ============================================================================
+### This section tests a typical workflow from start to finish
+
+### 1. Create Main Container
+PUT {{baseUrl}}/workflow-test
+
+### 2. Create Directory Structure
+PUT {{baseUrl}}/workflow-test/data?directory
+PUT {{baseUrl}}/workflow-test/data/input?directory
+PUT {{baseUrl}}/workflow-test/data/output?directory
+
+### 3. Upload Input Data
+PUT {{baseUrl}}/workflow-test/data/input/source.csv
+Content-Type: text/csv
+
+id,name,value
+1,Alice,100
+2,Bob,200
+3,Charlie,300
+
+### 4. Create Processing Log
+PUT {{baseUrl}}/workflow-test/processing.log
+Content-Type: text/plain
+
+[2024-01-05 10:00:00] Processing started
+[2024-01-05 10:00:01] Reading source file
+[2024-01-05 10:00:02] Processing complete
+
+### 5. Upload Output
+PUT {{baseUrl}}/workflow-test/data/output/result.json
+Content-Type: application/json
+
+{
+  "status": "success",
+  "records": 3,
+  "timestamp": "2024-01-05T10:00:02Z"
+}
+
+### 6. List All Contents
+GET {{baseUrl}}/workflow-test
+
+### 7. List Output Directory
+GET {{baseUrl}}/workflow-test/data/output
+
+### 8. Verify Input
+GET {{baseUrl}}/workflow-test/data/input/source.csv
+
+### 9. Verify Output
+GET {{baseUrl}}/workflow-test/data/output/result.json
+
+### 10. Check Log
+GET {{baseUrl}}/workflow-test/processing.log
